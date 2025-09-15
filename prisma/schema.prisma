@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  clerkId   String   @unique
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  pages     Page[]
+  documents Document[]
+
+  @@map("users")
+}
+
+model Document {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  icon      String?
+  coverImage String?
+  isPublished Boolean @default(false)
+  isArchived Boolean @default(false)
+  userId    String   @db.ObjectId
+  parentDocumentId String? @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pages     Page[]
+  children  Document[] @relation("DocumentHierarchy", fields: [id], references: [parentDocumentId])
+  parent    Document? @relation("DocumentHierarchy", fields: [parentDocumentId], references: [id])
+
+  @@map("documents")
+}
+
+model Page {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  content   String?  // JSON string of the page content
+  icon      String?
+  coverImage String?
+  isPublished Boolean @default(false)
+  isArchived Boolean @default(false)
+  userId    String   @db.ObjectId
+  documentId String? @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  document  Document? @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  blocks    Block[]
+
+  @@map("pages")
+}
+
+model Block {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  type      String   // paragraph, heading, bulletList, numberedList, code, etc.
+  content   String?  // JSON string of the block content
+  order     Int
+  pageId    String   @db.ObjectId
+  parentId  String?  @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  page      Page     @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  parent    Block?   @relation("BlockHierarchy", fields: [id], references: [parentId])
+  children  Block[]  @relation("BlockHierarchy")
+
+  @@map("blocks")
+}

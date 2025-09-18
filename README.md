@@ -4,13 +4,13 @@ A modern, full-featured Notion clone built with Next.js, TypeScript, React, Cler
 
 ## Features
 
-- 🔐 **Authentication** - Secure user authentication with Clerk
-- ✍️ **Rich Text Editor** - Powerful editor with TipTap for formatting, lists, code blocks, and more
-- 📄 **Document Management** - Create, edit, and organize documents
-- 🎨 **Modern UI** - Beautiful, responsive design with Tailwind CSS
-- 🚀 **Performance** - Optimized for speed and efficiency
-- 📱 **Responsive** - Works seamlessly on all devices
-- 🌙 **Dark Mode** - Built-in dark mode support
+-  **Authentication** - Secure user authentication with Clerk
+-  **Rich Text Editor** - Powerful editor with TipTap for formatting, lists, code blocks, and more
+-  **Document Management** - Create, edit, and organize documents
+-  **Modern UI** - Beautiful, responsive design with Tailwind CSS
+-  **Performance** - Optimized for speed and efficiency
+-  **Responsive** - Works seamlessly on all devices
+-  **Dark Mode** - Built-in dark mode support
 
 ## Tech Stack
 
@@ -95,7 +95,7 @@ src/
 └── middleware.ts         # Clerk middleware
 ```
 
-## Key Features
+<!-- ## Key Features
 
 ### Rich Text Editor
 - Bold, italic, underline, strikethrough
@@ -172,4 +172,4 @@ This project is licensed under the MIT License.
 - [Prisma](https://prisma.io/) - Database ORM
 - [TipTap](https://tiptap.dev/) - Rich text editor
 - [Tailwind CSS](https://tailwindcss.com/) - Styling
-- [Radix UI](https://www.radix-ui.com/) - UI components
+- [Radix UI](https://www.radix-ui.com/) - UI components -->
